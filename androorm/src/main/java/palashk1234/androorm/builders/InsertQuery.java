@@ -5,6 +5,7 @@ import android.util.Log;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +57,12 @@ public class InsertQuery {
 
         }
 
+        public Builder setClass(Object object) {
+            this.object = object;
+            return this;
+        }
+
+
         public InsertQuery build() {
             return new InsertQuery(Builder.this);
         }
@@ -74,26 +81,37 @@ public class InsertQuery {
                     for (Field field : fields) {
                         annotation = field.getAnnotation(Entity.class);
                         Entity entity = (Entity) annotation;
+                        if (Modifier.isPublic(field.getModifiers())) {
+                            try {
+                                lstOrmConfigPojo.add(new OrmConfigPojo(entity.FieldName(),
+                                        entity.FieldType(), entity.FieldSize(),
+                                        entity.isPrimaryKey(), field.get(object)));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Method method[] = clazz.getDeclaredMethods();
+                            for (Method meth : method) {
 
-                        Method method[] = clazz.getDeclaredMethods();
-                        for (Method meth : method) {
+                                if (meth.getName().startsWith("get")
+                                        && meth.getName().length() == (field.getName().length() + 3)) {
 
-                            if (meth.getName().startsWith("get")
-                                    && meth.getName().length() == (field.getName().length() + 3)) {
-
-                                if (meth.getName().toLowerCase()
-                                        .endsWith(field.getName().toLowerCase())) {
-                                    // Method found
-                                    try {
-                                        lstOrmConfigPojo.add(new OrmConfigPojo(entity.FieldName(),
-                                                entity.FieldType(), entity.FieldSize(),
-                                                entity.isPrimaryKey(), meth.invoke(object)));
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
+                                    if (meth.getName().toLowerCase()
+                                            .endsWith(field.getName().toLowerCase())) {
+                                        // Method found
+                                        try {
+                                            lstOrmConfigPojo.add(new OrmConfigPojo(entity.FieldName(),
+                                                    entity.FieldType(), entity.FieldSize(),
+                                                    entity.isPrimaryKey(), meth.invoke(object)));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }
                             }
                         }
+
+
                     }
                 }
 
@@ -104,3 +122,4 @@ public class InsertQuery {
     }
 
 }
+
