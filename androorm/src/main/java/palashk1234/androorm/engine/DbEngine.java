@@ -46,7 +46,6 @@ public class DbEngine {
         if (!AndroUtils.isNull(tableName)) {
             if (!AndroUtils.isNull(context) && !AndroUtils.isNull(dataBaseName)) {
                 DbHelper dbHelper = new DbHelper(context, dataBaseName);
-
                 if (isTablePresent(dbHelper, tableName)) {
                     ContentValues contentValues = generateContentValues(lstOrmConfigPojo);
                     long insert = dbHelper.getWritableDatabase().insert(tableName, null, contentValues);

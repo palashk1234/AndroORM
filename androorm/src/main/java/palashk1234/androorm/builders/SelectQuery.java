@@ -44,7 +44,7 @@ public class SelectQuery {
             if (clazz.isAnnotationPresent(Table.class)) {
                 Annotation annotation = clazz.getAnnotation(Table.class);
                 Table table = (Table) annotation;
-                this.tableName = table.TableName();
+                this.tableName = table.name();
             }
         }
 

@@ -9,7 +9,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import palashk1234.androorm.annotations.Entity;
+import palashk1234.androorm.annotations.Column;
 import palashk1234.androorm.annotations.Table;
 import palashk1234.androorm.engine.DbEngine;
 import palashk1234.androorm.models.OrmConfigPojo;
@@ -73,19 +73,19 @@ public class InsertQuery {
             if (clazz.isAnnotationPresent(Table.class)) {
                 Annotation annotation = clazz.getAnnotation(Table.class);
                 Table table = (Table) annotation;
-                this.tableName = table.TableName();
+                this.tableName = table.name();
 
                 Field[] fields = clazz.getDeclaredFields();
                 if (!AndroUtils.isNull(fields) && fields.length != 0) {
                     lstOrmConfigPojo = new ArrayList<>();
                     for (Field field : fields) {
-                        annotation = field.getAnnotation(Entity.class);
-                        Entity entity = (Entity) annotation;
+                        annotation = field.getAnnotation(Column.class);
+                        Column column = (Column) annotation;
                         if (Modifier.isPublic(field.getModifiers())) {
                             try {
-                                lstOrmConfigPojo.add(new OrmConfigPojo(entity.FieldName(),
-                                        entity.FieldType(), entity.FieldSize(),
-                                        entity.isPrimaryKey(), field.get(object)));
+                                lstOrmConfigPojo.add(new OrmConfigPojo(column.name(),
+                                        column.fieldType(), column.fieldSize(),
+                                        column.isPrimaryKey(), field.get(object)));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -100,9 +100,9 @@ public class InsertQuery {
                                             .endsWith(field.getName().toLowerCase())) {
                                         // Method found
                                         try {
-                                            lstOrmConfigPojo.add(new OrmConfigPojo(entity.FieldName(),
-                                                    entity.FieldType(), entity.FieldSize(),
-                                                    entity.isPrimaryKey(), meth.invoke(object)));
+                                            lstOrmConfigPojo.add(new OrmConfigPojo(column.name(),
+                                                    column.fieldType(), column.fieldSize(),
+                                                    column.isPrimaryKey(), meth.invoke(object)));
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -122,4 +122,3 @@ public class InsertQuery {
     }
 
 }
-
