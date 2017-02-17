@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import palashk1234.androorm.models.OrmConfigPojo;
@@ -83,19 +84,11 @@ public class DbEngine {
                     dbHelper.getWritableDatabase().execSQL(query);
                     Log.d(TAG, tableName + " Table created Successfully..");
                     isTableCreateSuccess = true;
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     isTableCreateSuccess = false;
                     Log.e(TAG, "Table create failed..");
                 }
-
-//                Cursor cursor = dbHelper.getWritableDatabase().rawQuery(query, null);
-//                if (AndroUtils.isNull(cursor) && cursor.getCount() != 0) {
-//                    isTableCreateSuccess = true;
-//                    Log.d(TAG, tableName + " Table created Successfully..");
-//                } else {
-//                    Log.e(TAG, "Table create failed..");
-//                }
             }
         }
         return isTableCreateSuccess;
@@ -125,6 +118,24 @@ public class DbEngine {
         } else {
             return false;
         }
+    }
+
+    public List<?> processSelectQuery(String tableName, Class<?> clazz, List<OrmConfigPojo> lstOrmConfigPojo) {
+        List lstData = new ArrayList();
+
+        if (!AndroUtils.isNull(tableName)) {
+            if (!AndroUtils.isNull(context) && !AndroUtils.isNull(dataBaseName)) {
+                DbHelper dbHelper = new DbHelper(context, dataBaseName);
+                if (isTablePresent(dbHelper, tableName)) {
+
+                } else {
+                    Log.e(TAG, "Table Not Found");
+                    return null;
+                }
+            }
+        }
+
+        return lstData;
     }
 
 
