@@ -7,9 +7,16 @@ import java.lang.annotation.Target;
 
 /**
  * Created by palash on 16 Feb 2017.
+ * <p>
+ * Annotation for declaring the Class represents Table in Database.
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Table {
-    String TableName() default "";
+    /**
+     * Set name of Table
+     *
+     * @return Name of the Table.
+     */
+    String name();
 }

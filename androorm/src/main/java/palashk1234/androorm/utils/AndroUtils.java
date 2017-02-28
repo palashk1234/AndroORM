@@ -5,6 +5,10 @@ import android.util.Log;
 
 /**
  * Created by Palash on 29/11/2016.
+ * <p>
+ * This is the Generalized Utility class for several useful methods.
+ * <p>
+ * Checkout <a href = "www.github.com/palashk1234/Andro-Utils"> www.github.com/palashk1234/Andro-Utils </a>
  */
 public class AndroUtils {
     private static final String TAG = "AndroUtils";
