@@ -82,7 +82,7 @@ public class EmployeeDtlsPojo {
                                             
                                             
 List<EmployeeDtlsPojo> list = new SelectQuery.Builder(EmployeeDtlsPojo.class)
-                                            .setFields("EMPLOYEE_NAME",EMPLOYEE_AGE)
+                                            .setFields("EMPLOYEE_NAME","EMPLOYEE_AGE")
                                             .build()
                                             .execute();                                            
   ```
