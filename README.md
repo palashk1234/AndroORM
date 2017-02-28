@@ -75,7 +75,6 @@ public class EmployeeDtlsPojo {
   Or for customized Selection from Table use method as follows.<br>
   ```java
   List<EmployeeDtlsPojo> list = new SelectQuery.Builder(EmployeeDtlsPojo.class)
-                                            .setFields(DbUtils.EMPLOYEE_NAME)
                                             .where("EMPLOYEE_NAME  LIKE 'Employee%' ")
                                             .build()
                                             .execute();
