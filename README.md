@@ -4,7 +4,7 @@ ORM Library for android.
 
 ### Usage
 
-  Start the DbENgine in your Application class like this.<br>
+  Start the DbEngine in your Application class like this.<br>
   ```java
   DbEngine.start(getApplicationContext(), "MyDatabase");
   ```
