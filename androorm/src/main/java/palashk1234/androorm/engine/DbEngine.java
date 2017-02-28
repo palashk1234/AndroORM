@@ -228,11 +228,11 @@ public class DbEngine {
             Field[] fieldsOfClass = clazz.getDeclaredFields();
             try {
                 Constructor<?> constructor = clazz.getConstructor();
-                Object object = constructor.newInstance();
 //                Log.e(TAG, "Object-->" + object.toString());
                 if (!AndroUtils.isNull(fields)) {
                     String[] selectionFields = fields.split("\\,");
                     do {
+                        Object object = constructor.newInstance();
                         for (String selectionField : selectionFields) {
                             if (!AndroUtils.isNull(cursor.getColumnName(cursor.getColumnIndex(selectionField)))) {
                                 for (Field field1 : fieldsOfClass) {
@@ -277,6 +277,7 @@ public class DbEngine {
 
                 } else {
                     do {
+                        Object object = constructor.newInstance();
                         for (Field field1 : fieldsOfClass) {
                             Annotation annotation = field1.getAnnotation(Column.class);
                             Column column = (Column) annotation;
