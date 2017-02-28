@@ -123,7 +123,11 @@ public class SelectQuery {
          * @return Builder.
          */
         public Builder where(String where) {
-            this.where = where;
+            if (where.toLowerCase().startsWith(" where ")) {
+                this.where = where;
+            } else {
+                this.where = " where " + where;
+            }
             return this;
         }
 
