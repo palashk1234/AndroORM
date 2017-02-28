@@ -12,7 +12,7 @@ ORM Library for android.
   Make Model/Pojo class as like given below.<br>
   
   ```java
-  @Table(name = "employee_dtls")
+@Table(name = "employee_dtls")
 public class EmployeeDtlsPojo {
 
     @Column(name = "EMPLOYEE_NAME", fieldType = FieldType.TEXT)
