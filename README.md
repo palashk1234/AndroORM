@@ -3,6 +3,22 @@ ORM Library for android.
 
 
 ### Usage
+  Add dependency to your project gradle
+  ```java
+  allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+  ```
+  
+  Add dependency to your app gradle
+  ```java
+  dependencies {
+	        compile 'com.github.palashk1234:AndroORM:1.0.0'
+	}
+  ```  
 
   Start the DbEngine in your Application class like this.<br>
   ```java
