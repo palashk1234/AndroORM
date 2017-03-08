@@ -16,7 +16,7 @@ ORM Library for android.
   Add dependency to your app gradle
   ```java
   dependencies {
-	        compile 'com.github.palashk1234:AndroORM:1.0.0'
+	        compile 'com.github.palashk1234:AndroORM:1.0.1'
 	}
   ```  
 
